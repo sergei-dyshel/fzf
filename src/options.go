@@ -10,6 +10,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/sergei-dyshel/fzf-abbrev/src/algo"
+	"github.com/sergei-dyshel/fzf-abbrev/src/algo/abbrev"
 	"github.com/sergei-dyshel/fzf-abbrev/src/tui"
 	"github.com/mattn/go-runewidth"
 	"github.com/mattn/go-shellwords"
@@ -1288,6 +1289,9 @@ func parseOptions(opts *Options, allArgs []string) {
 			opts.ClearOnExit = false
 		case "--version":
 			opts.Version = true
+		case "--abbrev":
+			abbrev.Opts.Parse(nextString(allArgs, &i,
+				"list of abbrev matcher arguments is required"))
 		default:
 			if match, value := optString(arg, "--algo="); match {
 				opts.FuzzyAlgo = parseAlgo(value)
